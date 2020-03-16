@@ -36,6 +36,7 @@ client.on('shardReady', (id: number) => {
 
 client.on('shardDisconnect', (err: Error, id: number) => {
   Logger.get(Client).info(`Shard: ${id} with status 'disconnected' because ${err.message}`);
+  Logger.get('Process').info(`Self destructed`)
   process.exit(0)
 })
 
