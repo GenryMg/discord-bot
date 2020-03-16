@@ -9,11 +9,11 @@ import { Stats } from '@arcanebot/redis-sharder';
 const client = new Client(process.env.DEVELOPMENT === 'true' ? config.tokens.dev : config.tokens.prod, {
   erisOptions: {
     disableEveryone: true,
-    maxShards: 3
+    maxShards: 4
   },
   lockKey: process.env.DEVELOPMENT === 'true' ? config.lock_keys.dev : config.lock_keys.prod,
   redisHost: config.redis.host,
-  shardsPerCluster: 3,
+  shardsPerCluster: 2,
   //@ts-ignore
   getFirstShard: () => {
     return Number(process.env.pm_id);
@@ -27,9 +27,11 @@ client.on('shardReady', (id: number) => {
   client.shards.get(id).editStatus("dnd", {
     name: `https://corona.lmao.ninja/invite (${id + 1}/${client.options.maxShards})`
   })
-  client.getStats().then((stats: Stats) => {
-    client.dbl.postStats(stats.guilds, 0, client.options.maxShards)
-  });
+  if (process.env.DEVELOPMENT !== 'true') {
+    client.getStats().then((stats: Stats) => {
+      client.dbl.postStats(stats.guilds, 0, client.options.maxShards)
+    });
+  }
 });
 
 client.on('shardDisconnect', (err: Error, id: number) => {
@@ -59,8 +61,10 @@ client.on('messageCreate', async (message: Message) => {
   }
 })
 
-setInterval(() => {
-  client.getStats().then((stats: Stats) => {
-    client.dbl.postStats(stats.guilds, 0, client.options.maxShards)
-  });
-}, 1800000);
+if (process.env.DEVELOPMENT !== 'true') {
+  setInterval(() => {
+    client.getStats().then((stats: Stats) => {
+      client.dbl.postStats(stats.guilds, 0, client.options.maxShards)
+    });
+  }, 1800000);
+}
