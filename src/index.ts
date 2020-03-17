@@ -16,7 +16,7 @@ const client = new Client(process.env.DEVELOPMENT === 'true' ? config.tokens.dev
   shardsPerCluster: 2,
   //@ts-ignore
   getFirstShard: () => {
-    return Number(process.env.pm_id);
+    return 0;
   },
 });
 

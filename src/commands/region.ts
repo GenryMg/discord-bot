@@ -19,10 +19,10 @@ export default class extends Command {
     const countriesWithRegion = ['china', 'canada', 'unitedstates', 'australia', 'cruiseship', 'ch', 'ca', 'us', 'au']
     if (!countriesWithRegion.includes(args[0])) return message.channel.createMessage(`That country does not have any region data.`);
 
-    const country = data.sorted.find(c => c.country.name.toLowerCase() === args[0].toLowerCase() || c.country.code.toLowerCase() === args[0].toLowerCase())
+    const country = data.sorted.find(c => c.country.name.toLowerCase().includes(args[0].toLowerCase()) || c.country.code.toLowerCase().includes(args[0].toLowerCase()))
     // console.log(country)
     if (!country) return message.channel.createMessage(`That country was not found!`)
-    const region = country.regions.find(c => c.name.toLowerCase().replace('\s?', '') === args.slice(1).join(" "))
+    const region = country.regions.find(c => c.name.toLowerCase().replace('\s?', '').includes(args.slice(1).join(" ")))
     if (!region) return message.channel.createMessage(`That region does not exist, or does not have the virus yet.`);
     message.channel.createMessage({
       content: Math.random() > .2 ? 'You can now **vote** for **COVID-19 Bot** here: <https://top.gg/bot/685268214435020809/vote>' : '',

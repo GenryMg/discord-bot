@@ -31,7 +31,7 @@ export default class extends Command {
             name: 'Users', value: stats.users.toLocaleString(), inline: true
           },
           {
-            name: 'Shard', value: ((message.channel as TextChannel).guild.shard.id + 1) + '/' + this.client.shards.size, inline: true
+            name: 'Shard', value: ((message.channel as TextChannel).guild.shard.id + 1) + '/' + stats.shards.length, inline: true
           },
           {
             name: 'Commands Used', value: `${commandsUsed.toLocaleString()}`, inline: true
