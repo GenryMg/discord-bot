@@ -16,7 +16,7 @@ export class Client extends GatewayClient {
     super(token, options);
     this.token = token;
     this.readCommands();
-    if (process.env.DEVELOPMENT !== 'true' || Number(process.env.pm_id) === 0) { this.dbl = new DBL(config.dbl.token, { webhookPort: config.dbl.port, webhookAuth: config.dbl.password }); }
+    if (process.env.DEVELOPMENT !== 'true' && Number(process.env.pm_id) === 0) { this.dbl = new DBL(config.dbl.token); }
   }
 
   async randomChance() {

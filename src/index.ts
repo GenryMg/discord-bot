@@ -27,7 +27,7 @@ client.on('shardReady', (id: number) => {
   client.shards.get(id).editStatus("dnd", {
     name: `https://corona.lmao.ninja/invite (${id + 1}/${client.options.maxShards})`
   })
-  if (process.env.DEVELOPMENT !== 'true' || Number(process.env.pm_id) === 0) {
+  if (process.env.DEVELOPMENT !== 'true' && Number(process.env.pm_id) === 0) {
     client.getStats().then((stats: Stats) => {
       client.dbl.postStats(stats.guilds, 0, client.options.maxShards)
     });
@@ -62,7 +62,7 @@ client.on('messageCreate', async (message: Message) => {
   }
 })
 
-if (process.env.DEVELOPMENT !== 'true' || Number(process.env.pm_id) === 0) {
+if (process.env.DEVELOPMENT !== 'true' && Number(process.env.pm_id) === 0) {
   setInterval(() => {
     client.getStats().then((stats: Stats) => {
       client.dbl.postStats(stats.guilds, 0, client.options.maxShards)
