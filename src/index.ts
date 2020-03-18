@@ -15,6 +15,9 @@ const client = new Client(process.env.DEVELOPMENT === 'true' ? config.tokens.dev
   redisHost: config.redis.host,
   redisPassword: config.redis.password,
   shardsPerCluster: 3,
+  webhooks: {
+    discord: process.env.DEVELOPMENT === 'true' ? config.statsWebhooks.dev : config.statsWebhooks.prod
+  },
   //@ts-ignore
   getFirstShard: () => {
     return Number(process.env.pm_id)
