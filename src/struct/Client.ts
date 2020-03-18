@@ -20,7 +20,7 @@ export class Client extends GatewayClient {
   }
 
   async randomChance() {
-    return Math.random() > .3;
+    return Math.random() > .7;
   }
   async readCommands() {
     const files = this.readdir(process.env.DEVELOPMENT === 'true' ? './src/commands' : './out/src/commands');

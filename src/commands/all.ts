@@ -23,7 +23,7 @@ export default class extends Command {
     const critical = data.map(d => d.critical).reduce((a, b) => a + b);
 
     message.channel.createMessage({
-      content: Math.random() > .2 ? 'You can now **vote** for **COVID-19 Bot** here: <https://top.gg/bot/685268214435020809/vote>, feel free to join our server also: <https://discord.gg/EvbMshU>' : '',
+      content: Math.random() > .7 ? 'You can now **vote** for **COVID-19 Bot** here: <https://top.gg/bot/685268214435020809/vote>, feel free to join our server also: <https://discord.gg/EvbMshU>' : '',
       embed: {
         author: {
           name: 'COVID-19',
