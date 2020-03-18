@@ -9,11 +9,12 @@ import { Stats } from '@arcanebot/redis-sharder';
 const client = new Client(process.env.DEVELOPMENT === 'true' ? config.tokens.dev : config.tokens.prod, {
   erisOptions: {
     disableEveryone: true,
-    maxShards: 4
+    maxShards: 6
   },
   lockKey: process.env.DEVELOPMENT === 'true' ? config.lock_keys.dev : config.lock_keys.prod,
   redisHost: config.redis.host,
-  shardsPerCluster: 2,
+  redisPassword: config.redis.password,
+  shardsPerCluster: 3,
   //@ts-ignore
   getFirstShard: () => {
     return Number(process.env.pm_id)
