@@ -11,7 +11,7 @@ export default class extends Command {
   }
   exec(message: Message, args: string[]) {
     message.channel.createMessage({
-      content: Math.random() > .7 ? 'You can now **vote** for **COVID-19 Bot** here: <https://top.gg/bot/685268214435020809/vote>' : null,
+      content: Math.random() > .7 ? 'You can now **vote** for **COVID-19 Bot** here: <https://top.gg/bot/685268214435020809/vote>' : '',
       embed: {
         author: {
           name: 'Commands',

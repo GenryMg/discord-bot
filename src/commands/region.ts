@@ -25,7 +25,7 @@ export default class extends Command {
     const region = country.regions.find(c => c.name.toLowerCase().replace('\s?', '').includes(args.slice(1).join(" ")))
     if (!region) return message.channel.createMessage(`That region does not exist, or does not have the virus yet.`);
     message.channel.createMessage({
-      content: Math.random() > .7 ? 'You can now **vote** for **COVID-19 Bot** here: <https://top.gg/bot/685268214435020809/vote>, feel free to join our server also: <https://discord.gg/EvbMshU>' : '',
+      content: Math.random() > .7 ? 'You can now **vote** for **COVID-19 Bot** here: <https://top.gg/bot/685268214435020809/vote> ' : '',
       embed: {
         author: {
           name: `COVID-19 statistics for ${region.name}, ${country.country.name}`,

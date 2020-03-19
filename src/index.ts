@@ -9,12 +9,12 @@ import { Stats } from '@arcanebot/redis-sharder';
 const client = new Client(process.env.DEVELOPMENT === 'true' ? config.tokens.dev : config.tokens.prod, {
   erisOptions: {
     disableEveryone: true,
-    maxShards: 6
+    maxShards: config.shard.amount
   },
   lockKey: process.env.DEVELOPMENT === 'true' ? config.lock_keys.dev : config.lock_keys.prod,
   redisHost: config.redis.host,
   redisPassword: config.redis.password,
-  shardsPerCluster: 3,
+  shardsPerCluster: config.shard.perCluster,
   webhooks: {
     discord: process.env.DEVELOPMENT === 'true' ? config.statsWebhooks.dev : config.statsWebhooks.prod
   },
@@ -57,6 +57,12 @@ client.on('messageCreate', async (message: Message) => {
   const cmd = client.commands.get(command) || client.aliases.get(command);
   if (!cmd) return;
   if (cmd.owner && !config.devs.includes(message.author.id)) return;
+  if (config.blacklistedChannels.includes(message.channel.id)) {
+    message.delete()
+    const msg = await message.channel.createMessage(`Please don't use my commands here!`)
+    setTimeout(() => { msg.delete() }, 5000)
+    return;
+  }
   try {
     client.redisConnection.incr(`${client.lockKey}:commands`);
     return await cmd.exec(message, args);

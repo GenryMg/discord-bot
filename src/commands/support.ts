@@ -4,9 +4,9 @@ import { Message } from "eris";
 export default class extends Command {
   constructor(client) {
     super(client, {
-      name: 'vote',
+      name: 'support',
       aliases: [],
-      description: 'Vote for covid-19 bot!',
+      description: 'Join the official support server',
       cat: 'system'
     });
   }
@@ -14,13 +14,13 @@ export default class extends Command {
     message.channel.createMessage({
       embed: {
         author: {
-          name: 'COVID-19 Vote on TOP.gg',
+          name: 'COVID-19 support',
           icon_url: this.client.user.avatarURL
         },
         color: this.client.color,
         fields: [
           {
-            name: 'Vote on Top.gg', value: '[Vote Now](https://top.gg/bot/685268214435020809/vote)'
+            name: 'Discord Server', value: 'It\'s [Here](https://discord.gg/EvbMshU)'
           }
         ]
       }
