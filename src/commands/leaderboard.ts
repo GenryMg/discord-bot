@@ -28,23 +28,24 @@ export default class extends Command {
         }
       })
     } else {
-      const res = await require('node-fetch')(`https://coronavirus-stats.stantabcorp.co.uk`);
+      const countriesWithRegion = ['cn', 'ca', 'us', 'au']
+      if (!countriesWithRegion.includes(args[0].toLowerCase())) return message.channel.createMessage(`That country does not have any region data.`);
+      const res = await require('node-fetch')(`https://coronavirus-tracker-api.herokuapp.com/v2/locations?country_code=${args[0].toLowerCase()}`);
       const data = await res.json();
-      const countriesWithRegion = ['china', 'canada', 'unitedstates', 'australia', 'cruiseship', 'ch', 'ca', 'us', 'au']
-      if (!countriesWithRegion.includes(args[0])) return message.channel.createMessage(`That country does not have any region data.`);
-
-      const country = data.sorted.find(c => c.country.name.toLowerCase() === args[0].toLowerCase() || c.country.code.toLowerCase() === args[0].toLowerCase())
-      country.regions.length = 10;
+      if (data.locations.length <= 0)
+        data.locations.length = 10;
+      const locations = data.locations.sort((a, b) => b.latest.confirmed - a.latest.confirmed);
+      locations.length = 10;
       let i = 1;
       return message.channel.createMessage({
         content: Math.random() > .7 ? 'You can now **vote** for **COVID-19 Bot** here: <https://top.gg/bot/685268214435020809/vote> ' : '',
         embed: {
           author: {
-            name: 'COVID-19 Top 10 Cases for ' + country.country.name,
+            name: 'COVID-19 Top 10 Cases for ' + locations[0].country,
             icon_url: this.client.user.avatarURL
           },
           color: this.client.color,
-          description: `${country.regions.map(c => `${i++}. **${c.name}:** ${c.statistics.confirmed.toLocaleString()} cases`).join('\n')}`
+          description: `${locations.map(c => `${i++}. **${c.province}:** ${c.latest.confirmed.toLocaleString()} cases`).join('\n')}`
         }
       })
     }
