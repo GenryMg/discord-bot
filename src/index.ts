@@ -9,7 +9,8 @@ import { Stats } from '@arcanebot/redis-sharder';
 const client = new Client(process.env.DEVELOPMENT === 'true' ? config.tokens.dev : config.tokens.prod, {
   erisOptions: {
     disableEveryone: true,
-    maxShards: config.shard.amount
+    maxShards: config.shard.amount,
+    messageLimit: 0
   },
   lockKey: process.env.DEVELOPMENT === 'true' ? config.lock_keys.dev : config.lock_keys.prod,
   redisHost: config.redis.host,
