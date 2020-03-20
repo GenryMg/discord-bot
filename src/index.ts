@@ -29,7 +29,7 @@ client.queue();
 client.on('shardReady', (id: number) => {
   Logger.get(Client).info(`Shard: ${id} with status 'ready'`);
   client.shards.get(id).editStatus("dnd", {
-    name: `https://corona.lmao.ninja/invite (${id + 1}/${client.options.maxShards})`
+    name: `https://corona.lmao.ninja/invite (${id+1}/${client.options.maxShards})`
   })
   if (process.env.DEVELOPMENT !== 'true' && Number(process.env.pm_id) === 0) {
     client.getStats().then((stats: Stats) => {
