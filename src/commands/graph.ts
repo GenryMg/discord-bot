@@ -17,7 +17,7 @@ export default class extends Command {
     let found;
     if (!args[0]) return message.channel.createMessage('Please provide a country name');
     else found = data.find(c => c.country.toLowerCase().includes(args.join(" ").toLowerCase()))
-    if (args[1]) found = data.find(c => c.country.toLowerCase().includes(args[0].toLowerCase()) && c.province.toLowerCase().includes(args.slice(1).join(" ").toLowerCase()))
+    if (args[1]) found = data.find(c => c.country.toLowerCase() === args[0].toLowerCase() && c.province.toLowerCase().includes(args.slice(1).join(" ").toLowerCase()))
     if (!found) return message.channel.createMessage('Nothing found.');
     const dataForChart = {
       cases: {

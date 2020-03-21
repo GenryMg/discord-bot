@@ -12,14 +12,13 @@ export default class extends Command {
   }
   async exec(message: Message, args: string[]) {
     const countriesWithRegion = ['cn', 'ca', 'us', 'au']
-    if (!args[0]) return message.channel.createMessage(`Please provide a country name. (${countriesWithRegion.join(', ')})`);
-    if (!args.slice(1).join(" ")) return message.channel.createMessage(`Please provide a region name.`)
-    if (!countriesWithRegion.includes(args[0])) return message.channel.createMessage(`That country does not have any region data.`);
-    const res = await require('node-fetch')(`https://coronavirus-tracker-api.herokuapp.com/v2/locations?country_code=${args[0].toLowerCase()}`);
+    const res = await require('node-fetch')(`https://corona.lmao.ninja/jhucsse`);
     const data = await res.json();
-    if (data.locations.length <= 0) return message.channel.createMessage(`That country was not found!`)
-    const region = data.locations.find(c => c.province.toLowerCase().replace('\s?', '').includes(args.slice(1).join(" ")))
-    if (!region) return message.channel.createMessage(`That region does not exist, or does not have the virus yet.`);
+    if (!args[0]) return message.channel.createMessage(`Please provide a country name. (cn, ca, us, au)`);
+    if (!countriesWithRegion.includes(args[0])) return message.channel.createMessage(`That is not a country with region data. (cn, ca, us, au)`);
+    if (!args[1]) return message.channel.createMessage(`Please provide a region/province/state`)
+    const region = data.find(c => c.country.toLowerCase() === args[0].toLowerCase() && c.province.toLowerCase().includes(args.slice(1).join(" ").toLowerCase()))
+
     message.channel.createMessage({
       content: Math.random() > .7 ? 'You can now **vote** for **COVID-19 Bot** here: <https://top.gg/bot/685268214435020809/vote> ' : '',
       embed: {
@@ -30,13 +29,13 @@ export default class extends Command {
         color: this.client.color,
         fields: [
           {
-            name: 'Cases', value: region.latest.confirmed.toLocaleString(), inline: true
+            name: 'Cases', value: region.stats.confirmed.toLocaleString(), inline: true
           },
           {
-            name: 'Recovered', value: region.latest.recovered.toLocaleString(), inline: true
+            name: 'Recovered', value: region.stats.recovered.toLocaleString(), inline: true
           },
           {
-            name: 'Deaths', value: region.latest.deaths.toLocaleString(), inline: true
+            name: 'Deaths', value: region.stats.deaths.toLocaleString(), inline: true
           },
         ],
         footer: {
