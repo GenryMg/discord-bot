@@ -46,6 +46,10 @@ export default class extends Command {
           },
           color: this.client.color,
           description: `${locations.map(c => `${i++}. **${c.province}:** ${c.latest.confirmed.toLocaleString()} cases`).join('\n')}`
+          ,
+          footer: {
+            text: 'Having trouble? Join our support server: "cov support"'
+          }
         }
       })
     }

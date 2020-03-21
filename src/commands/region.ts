@@ -38,7 +38,10 @@ export default class extends Command {
           {
             name: 'Deaths', value: region.latest.deaths.toLocaleString(), inline: true
           },
-        ]
+        ],
+        footer: {
+          text: 'Having trouble? Join our support server: "cov support"'
+        }
       }
     })
   }

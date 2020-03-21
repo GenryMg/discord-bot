@@ -26,7 +26,10 @@ export default class extends Command {
           {
             name: 'List of affected countries', value: 'It can be found [here](https://www.worldometers.info/coronavirus/#countries)'
           }
-        ]
+        ],
+        footer: {
+          text: 'Having trouble? Join our support server: "cov support"'
+        }
       }
     })
   }

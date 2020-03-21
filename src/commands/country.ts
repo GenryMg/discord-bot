@@ -42,7 +42,10 @@ export default class extends Command {
           {
             name: 'Deaths Today', value: country.todayDeaths.toLocaleString(), inline: true
           },
-        ]
+        ],
+        footer: {
+          text: 'Having trouble? Join our support server: "cov support"'
+        }
       }
     })
   }

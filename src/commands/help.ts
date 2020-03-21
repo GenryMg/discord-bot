@@ -18,7 +18,13 @@ export default class extends Command {
           icon_url: this.client.user.avatarURL
         },
         color: this.client.color,
-        description: 'Updates:\n• Check out the new `region` command! (`cov region us wa`)\n• Leaderboard command now has a regions setting! (`cov lb china`)\n ***YOU CAN NOW VOTE IN TOP.GG!*** view the `vote` command for more!',
+        description: `
+Updates:
+• Check out the new \`region\` command! (\`cov region us washington\`)
+• Leaderboard command now has a regions setting! (\`cov lb cn\`)
+***YOU CAN NOW VOTE IN TOP.GG!*** view the \`vote\` command for more!
+• **New GRAPH command** (Ex. \`cov graph china\` or \`cov graph us washington\`)
+`,
         fields: [
           {
             name: 'Virus',
@@ -28,7 +34,10 @@ export default class extends Command {
             name: 'System',
             value: Array.from(this.client.commands).filter(c => c[1].cat === 'general' || c[1].cat === 'system').map(c => c[1].name).join(', ')
           }
-        ]
+        ],
+        footer: {
+          text: 'Having trouble? Join our support server: "cov support"'
+        }
       }
     })
   }
